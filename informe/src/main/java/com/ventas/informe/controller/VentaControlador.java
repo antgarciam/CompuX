@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class VentaControlador {
 @Autowired
     private VentaServicio service;
-    // Se inyecta el servicio para acceder a la logica de negocio
 
 
     @GetMapping("/venta/{producto}")
@@ -29,7 +28,6 @@ public class VentaControlador {
         return service.buscarPorNombreProducto(nombreProducto);
     }
 
-    //Get; Buscar por ID
     @GetMapping("/venta/{id}")
     public Optional<Venta> buscarPorId(@PathVariable Integer id){
         return service.buscarPorId(id);
@@ -53,7 +51,6 @@ public class VentaControlador {
 
     @PutMapping("actualizar/{id}")
     public String actualizar(@PathVariable Integer id, @RequestBody Venta venta) {
-        //TODO: process PUT request
         Optional<Venta> existente = service.buscarPorId(id);
         if(existente.isPresent()){
             service.actualizarVenta(id, venta);

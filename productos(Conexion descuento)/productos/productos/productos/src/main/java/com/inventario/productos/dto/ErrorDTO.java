@@ -11,13 +11,12 @@ import java.util.Map;
 
 public class ErrorDTO {
 
-    private LocalDateTime timestamp;  //Fecha y hora en que ocurrio el error
-    private int status;  //Codigo de estado HTTP (ej: 400, 404, 500)
-    private String mensaje;  // Mensaje general del error
-    private Map<String, String> errores; // Detalle de errores por campo (ej: "nombre" -> "no puede estar vacio")
-    private String path; // Ruta del endpoint donde ocurrió el error (ej: /agregar)
+    private LocalDateTime timestamp; 
+    private int status;  
+    private String mensaje;
+    private Map<String, String> errores;
+    private String path;
 
-    // Constructor completo para crear el objeto con todos sus datos
 
     public ErrorDTO(LocalDateTime timestamp, int status, String mensaje, Map<String, String> errores, String path){
         this.timestamp = timestamp;

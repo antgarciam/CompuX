@@ -17,7 +17,6 @@ public class OperacionesDescuento implements DescuentoService {
     private final DescuentoRepository repository;
     private final RestTemplate restTemplate;
 
-    // Inyectamos el repositorio y el RestTemplate para llamadas HTTP
     public OperacionesDescuento(DescuentoRepository repository, RestTemplate restTemplate) {
         this.repository = repository;
         this.restTemplate = restTemplate;
@@ -47,23 +46,20 @@ public class OperacionesDescuento implements DescuentoService {
     @Override
     public PromocionRespDto obtenerDetalleDescuento(Integer productoId) {
         
-        // 1. LLAMADA HTTP AL MICROSERVICIO PRODUCTO
         Double precioBaseInventario = 0.0;
         try {
-            // IMPORTANTE: Cambia "http://localhost:8080" por la URL y puerto donde corra tu microservicio PRODUCTO.
+
             String urlProducto = "http://localhost:8080/productos/" + productoId + "/precio";
             
-            // Hacemos una petición GET esperando un Double de respuesta
             precioBaseInventario = restTemplate.getForObject(urlProducto, Double.class);
             
             if (precioBaseInventario == null) {
-                precioBaseInventario = 0.0; // Valor por defecto si el API no devuelve nada
+                precioBaseInventario = 0.0; 
             }
         } catch (Exception e) {
             throw new RuntimeException("Error al comunicarse con el microservicio PRODUCTO: " + e.getMessage());
         }
 
-        // 2. LÓGICA DE DESCUENTOS (Tu código original corregido)
         LocalDateTime ahora = LocalDateTime.now();
         List<DescuentoModel> descuentosDelProducto = repository.findByProductoId(productoId);
         DescuentoModel descuentoVigente = null;

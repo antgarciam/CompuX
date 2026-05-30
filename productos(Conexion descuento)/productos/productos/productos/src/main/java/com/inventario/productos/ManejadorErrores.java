@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-//Esta clase captura errores de toda la aplicacion en forma global
-//Evita tener try-catch en cada controller
 
 @RestControllerAdvice
 public class ManejadorErrores {
@@ -29,7 +27,7 @@ public class ManejadorErrores {
 
             ErrorDTO errorDTO = new ErrorDTO(
                 LocalDateTime.now(),
-                400,  // Status y mensaje no se escriben en el codigo, se escriben solos, solamente hay que ingresar valores
+                400, 
                 "Error de validación",
                 errores,
                 request.getRequestURI()

@@ -19,12 +19,10 @@ public class VentaServicio {
     }
 
 
-      //GET; Buscar por NOMBRE
     public Optional<Venta>buscarPorNombreProducto(String nombreProducto){
         return repositorio.findByNombreProductoIgnoreCase(nombreProducto);
     }
 
-    //GET; Buscar por ID
     public Optional<Venta> buscarPorId(Integer Id){
         return repositorio.findById(Id);
     }
