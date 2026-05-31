@@ -35,4 +35,3 @@ public class ActualizarStockDTO {
 
 }
 
-//Prueba de github Damian
