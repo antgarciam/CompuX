@@ -13,6 +13,8 @@ import com.cliente.usuario.service.UsuarioService;
 import java.util.List;
 import java.util.Optional;
 
+import com.cliente.usuario.dto.ProductoListadoDTO;
+
 
 @RestController
 
@@ -70,6 +72,11 @@ public class UsuarioController {
             return "Usuario no encontrado con id: "+id;
         }
         
+    }
+
+    @GetMapping("/catalogo")
+    public List<ProductoListadoDTO> verCatalogo(){
+        return service.obtenerCatalogoDeProductos();
     }
 }
 

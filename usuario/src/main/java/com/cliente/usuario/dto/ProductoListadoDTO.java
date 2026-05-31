@@ -1,5 +1,4 @@
-package com.inventario.productos.dto;
-
+package com.cliente.usuario.dto;
 
 
 import lombok.Data;
@@ -13,4 +12,5 @@ public class ProductoListadoDTO {
     private Integer precio;
     private String categoria;
 }
+
 

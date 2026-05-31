@@ -5,16 +5,21 @@ import org.springframework.stereotype.Service;
 import com.cliente.usuario.dto.UsuarioListadoDTO;
 import com.cliente.usuario.model.Usuario;
 import com.cliente.usuario.repository.UsuarioRepository;
+import com.cliente.usuario.dto.ProductoListadoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.web.client.RestTemplate;
 
 @Service
 
 public class UsuarioService {
     @Autowired
     private UsuarioRepository repository;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public List<Usuario> listar(){
         return repository.findAll();
@@ -55,4 +60,17 @@ public class UsuarioService {
         return lista; 
     }
 
+    public List<ProductoListadoDTO> obtenerCatalogoDeProductos(){
+        ProductoListadoDTO[] productosArreglo = restTemplate.getForObject(
+            "http://localhost:8080/productos/listar-dto",
+            ProductoListadoDTO[].class
+        );
+
+        List<ProductoListadoDTO> listaFinal = new ArrayList<>();
+
+        for (ProductoListadoDTO prod : productosArreglo){
+            listaFinal.add(prod);
+        }
+        return listaFinal;
+    }
 }
