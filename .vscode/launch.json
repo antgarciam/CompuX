@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ProductosApplication<productos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.inventario.productos.ProductosApplication",
+            "projectName": "productos",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-CompraApplication<compra>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.pagos.compra.CompraApplication",
+            "projectName": "compra",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DescuentoApplication<descuento>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.promociones.descuento.DescuentoApplication",
+            "projectName": "descuento",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

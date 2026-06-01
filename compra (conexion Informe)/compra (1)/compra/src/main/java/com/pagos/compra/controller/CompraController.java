@@ -1,11 +1,12 @@
 package com.pagos.compra.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.pagos.compra.dto.CompraListadoDTO;
+import com.pagos.compra.dto.CompraRequestDTO;
+import com.pagos.compra.dto.CompraResponseDTO;
 import com.pagos.compra.model.Compra;
 import com.pagos.compra.service.CompraService;
 
@@ -47,13 +48,6 @@ public class CompraController {
         return service.buscarPorEstadoPago(estadoPago);
     }
 
-    @PostMapping("/agregar")
-    public ResponseEntity<Compra> guardar(@Valid @RequestBody Compra compra){
-
-    Compra nueva = service.guardar(compra);
-
-    return ResponseEntity.status(201).body(nueva);
-}   
 
     @DeleteMapping("eliminar/{id}")
     public String eliminar(@PathVariable Integer id){
@@ -79,4 +73,12 @@ public class CompraController {
         
     }
 
+
+    @PostMapping("/agregar")
+    public ResponseEntity<CompraResponseDTO> comprar( @RequestBody CompraRequestDTO dto){
+
+    return ResponseEntity.ok(
+            service.realizarCompra(dto)
+        );
+    }
 }

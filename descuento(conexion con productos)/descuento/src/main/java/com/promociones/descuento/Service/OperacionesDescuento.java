@@ -49,7 +49,7 @@ public class OperacionesDescuento implements DescuentoService {
         Double precioBaseInventario = 0.0;
         try {
 
-            String urlProducto = "http://localhost:8080/productos/" + productoId + "/precio";
+            String urlProducto = "http://localhost:8081/productos/" + productoId + "/precio";
             
             precioBaseInventario = restTemplate.getForObject(urlProducto, Double.class);
             

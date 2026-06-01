@@ -62,7 +62,7 @@ public class UsuarioService {
 
     public List<ProductoListadoDTO> obtenerCatalogoDeProductos(){
         ProductoListadoDTO[] productosArreglo = restTemplate.getForObject(
-            "http://localhost:8080/productos/listar-dto",
+            "http://localhost:8081/productos/listar-dto",
             ProductoListadoDTO[].class
         );
 
