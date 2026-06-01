@@ -1,63 +1,48 @@
 package com.ventas.informe.controller;
 
-import com.ventas.informe.service.VentaServicio;
+import com.ventas.informe.dto.VentaListadoDTO;
+import com.ventas.informe.dto.VentaSimpleDTO;
 import com.ventas.informe.model.Venta;
+import com.ventas.informe.service.VentaServicio;
 
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-
-@RequestMapping("/peliculas")
+@RequestMapping("/ventas")
 public class VentaControlador {
-@Autowired
-    private VentaServicio service;
 
+    private final VentaServicio service;
 
-    @GetMapping("/venta/{producto}")
-    public Optional <Venta> buscarPorNombreProducto(@PathVariable String nombreProducto){
-        return service.buscarPorNombreProducto(nombreProducto);
+    public VentaControlador(VentaServicio service){
+            this.service = service;
     }
 
-    @GetMapping("/venta/{id}")
-    public Optional<Venta> buscarPorId(@PathVariable Integer id){
-        return service.buscarPorId(id);
+    @PostMapping("/agregar")
+    public ResponseEntity<Venta> crearVenta(@Valid @RequestBody Venta venta){
+
+        Venta nueva = service.guardarVenta(venta);
+            return ResponseEntity.status(201).body(nueva);
     }
 
-    @PostMapping
-    public Venta crear(@RequestBody Venta venta) {
-        return service.guardarVenta(venta);
+    @GetMapping("/{id}/ventas")
+    public List<Venta> obtenerVentas(@PathVariable Integer codProducto){
+        return service.obtenerVentas(codProducto);
     }
 
-    @DeleteMapping("Eliminar/{id}")
-    public String eliminar(@PathVariable Integer id){
-        Optional<Venta> venta = service.buscarPorId(id);
-        if(venta.isPresent()){
-            service.eliminarPorId(id);
-            return "Informe eliminado";
-        }else {
-            return "Informe no encontrado con id: " + id;
-        }
+    @GetMapping("/listar-dto")
+    public List<VentaListadoDTO> ListarDTO(){
+        return service.ListarDTO();
+    }
+    @GetMapping("/{id}/detalle-simple")
+    public VentaSimpleDTO obtenerDetalleSimple(@PathVariable Integer codProducto){
+        return service.obtenerDetalleSimple(codProducto);
     }
 
-    @PutMapping("actualizar/{id}")
-    public String actualizar(@PathVariable Integer id, @RequestBody Venta venta) {
-        Optional<Venta> existente = service.buscarPorId(id);
-        if(existente.isPresent()){
-            service.actualizarVenta(id, venta);
-            return "Informe Actualizado correctamente";
-        }else {
-            return "Informec  no encontrado con id: "+id;
-        }
-        
-    }
+
 }
+
+

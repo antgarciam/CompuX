@@ -17,7 +17,7 @@ public class Venta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer codProducto;
 
     @NotBlank(message = "El producto no puede estar en blanco")
     @Column(nullable = false, length = 100)
@@ -28,7 +28,7 @@ public class Venta {
     private Integer cantidad;
 
     @NotBlank(message = "El valor no puede estar vacío")
-    private int valor;
+    private Integer valor;
 
 }
 
