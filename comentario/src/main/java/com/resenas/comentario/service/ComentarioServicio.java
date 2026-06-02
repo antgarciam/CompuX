@@ -2,9 +2,12 @@ package com.resenas.comentario.service;
 import  com.resenas.comentario.model.Comentario;
 import com.resenas.comentario.repository.ComentarioRepositorio;
 import com.resenas.comentario.dto.ComentarioListadoDTO;
+import com.resenas.comentario.dto.NotificacionDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,28 @@ public class ComentarioServicio {
 
 
     public Comentario guardar(Comentario comentario) {
-        return repository.save(comentario);
+        Comentario comentarioGuardado = repository.save(comentario);
+
+            try{
+                NotificacionDTO dto = new NotificacionDTO();
+                    dto.setNombre("");
+                    dto.setCategoria("");
+                    dto.setContenido("");
+                
+                    restClientNotificaciones.post()
+                        .uri("/api/mensajes")
+                        .body(dto)
+                        .retrieve()
+                        .toBodilessEntity();
+
+            System.out.println("Comentario guardado");
+
+
+
+       }catch (Exception e) {
+        System.out.println("Error al guardar comentario");
+       }
+       return comentarioGuardado;
     }
 
     public void eliminarPorId(Integer Id){
@@ -59,4 +83,15 @@ public class ComentarioServicio {
         }
         return lista; 
     }
+    
+
+    private final RestClient restClientNotificaciones = RestClient.builder()
+    .baseUrl("http://localhost:8085")
+    .build();
+
+
 }
+
+
+
+
