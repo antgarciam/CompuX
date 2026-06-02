@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service; 
 
 import com.pagos.compra.dto.ActualizarStockDTO;
-import com.pagos.compra.dto.CompraInformeDTO;
+import com.pagos.compra.dto.CompraDTO;
 import com.pagos.compra.dto.CompraListadoDTO;
 import com.pagos.compra.dto.CompraRequestDTO;
 import com.pagos.compra.dto.CompraResponseDTO;
@@ -128,21 +128,24 @@ public class CompraService {
         return respuesta;
     }
 
-
-    public CompraInformeDTO ObtenerCompraeInforme(Integer id){
+        public CompraDTO obtenerCompraInforme(Integer id){
 
         Compra compra = repository.findById(id)
-            .orElseThrow();
+            .orElseThrow(() ->
+                    new RuntimeException("Compra no encontrada"));
 
-        CompraInformeDTO dto = new CompraInformeDTO();
+        CompraDTO dto = new CompraDTO();
 
-        dto.setId(compra.getId());
-        dto.setMetodoPago(compra.getMetodoPago());
+        dto.setCompraId(compra.getId());
+        dto.setUsuarioId(compra.getUsuarioId());
+        dto.setProductoId(compra.getProductoId());
+        dto.setCantidad(compra.getCantidad());
         dto.setMonto(compra.getMonto());
+        dto.setMetodoPago(compra.getMetodoPago());
+        dto.setEstadoPago(compra.getEstadoPago());
 
-        return dto;
-
-    }
+                return dto;
+        }
 
     private final RestClient restClientNotificaciones = RestClient.builder()
     .baseUrl("http://localhost:8085")

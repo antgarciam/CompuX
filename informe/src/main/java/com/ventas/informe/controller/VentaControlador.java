@@ -1,12 +1,12 @@
 package com.ventas.informe.controller;
 
-import com.ventas.informe.dto.VentaListadoDTO;
-import com.ventas.informe.dto.VentaSimpleDTO;
+import com.ventas.informe.dto.VentaInformeDTO;
 import com.ventas.informe.model.Venta;
 import com.ventas.informe.service.VentaServicio;
 
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import java.util.List;
 
@@ -33,16 +33,13 @@ public class VentaControlador {
         return service.obtenerVentas(codProducto);
     }
 
-    @GetMapping("/listar-dto")
-    public List<VentaListadoDTO> ListarDTO(){
-        return service.ListarDTO();
-    }
-    @GetMapping("/{id}/detalle-simple")
-    public VentaSimpleDTO obtenerDetalleSimple(@PathVariable Integer codProducto){
-        return service.obtenerDetalleSimple(codProducto);
-    }
+     @GetMapping("/{compraId}")
+    public VentaInformeDTO generarInforme(
+            @PathVariable Integer compraId) {
 
-
+        return service.generarInforme(compraId);
+    }
 }
+
 
 

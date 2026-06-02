@@ -27,7 +27,7 @@ public class ProductoController {
         return service.listar();
     }
 
-    @GetMapping("/listar-dto")
+    @GetMapping("/catalogo")
     public List<ProductoListadoDTO> listarDTO(){
         return service.listarDTO();
 }
