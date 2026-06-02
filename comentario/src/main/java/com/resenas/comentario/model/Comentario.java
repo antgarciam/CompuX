@@ -16,15 +16,20 @@ public class Comentario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
-    @NotBlank(message = "El titulo no opuede estar vacio")
-    @Column(nullable = false, length = 100)
-    private String Titulo;
+    @NotNull
+    private Integer usuarioId;
 
-    @NotBlank(message = "El Comentario no opuede estar vacio")
-    @Column(nullable = false, length = 100000)
-    private String Texto;
+    @NotNull
+    private Integer productoId;
+
+    @NotBlank
+    private String comentario;
+
+    @Min(1)
+    @Max(10)
+    private Integer calificacion;
     
 
 }

@@ -1,15 +1,14 @@
 package com.resenas.comentario.service;
+import com.resenas.comentario.dto.ComentarioRequestDTO;
+import com.resenas.comentario.dto.ComentarioResponseDTO;
+import com.resenas.comentario.dto.ProductoDTO;
+import com.resenas.comentario.dto.UsuarioDTO;
 import  com.resenas.comentario.model.Comentario;
 import com.resenas.comentario.repository.ComentarioRepositorio;
-import com.resenas.comentario.dto.ComentarioListadoDTO;
-import com.resenas.comentario.dto.NotificacionDTO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestTemplate;
 
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,76 +18,97 @@ public class ComentarioServicio {
 @Autowired 
     private ComentarioRepositorio repository;
 
+    private final RestTemplate restTemplate = new RestTemplate();
     
+    public ComentarioResponseDTO crearComentario(
+        ComentarioRequestDTO dto) {
+
+    UsuarioDTO usuario =
+            restTemplate.getForObject(
+                    "http://localhost:8080/usuario/buscar/"
+                            + dto.getUsuarioId(),
+                    UsuarioDTO.class
+            );
+
+    ProductoDTO producto =
+            restTemplate.getForObject(
+                    "http://localhost:8081/productos/buscar/"
+                            + dto.getProductoId(),
+                    ProductoDTO.class
+            );
+
+    if(usuario == null){
+        throw new RuntimeException(
+                "Usuario no encontrado"
+        );
+    }
+
+    if(producto == null){
+        throw new RuntimeException(
+                "Producto no encontrado"
+        );
+    }
+
+    Comentario comentario = new Comentario();
+
+    comentario.setUsuarioId(
+            dto.getUsuarioId()
+    );
+
+    comentario.setProductoId(
+            dto.getProductoId()
+    );
+
+    comentario.setComentario(
+            dto.getComentario()
+    );
+
+    comentario.setCalificacion(
+            dto.getCalificacion()
+    );
+
+    repository.save(comentario);
+
+    ComentarioResponseDTO respuesta = new ComentarioResponseDTO();
+
+    respuesta.setId(
+            comentario.getId()
+    );
+
+    respuesta.setUsuarioId(
+            usuario.getId()
+    );
+
+    respuesta.setNombreUsuario(
+            usuario.getNombreUsuario()
+    );
+
+    respuesta.setProductoId(
+            producto.getId()
+    );
+
+    respuesta.setNombreProducto(
+            producto.getNombreProducto()
+    );
+
+    respuesta.setComentario(
+            comentario.getComentario()
+    );
+
+    respuesta.setCalificacion(
+            comentario.getCalificacion()
+    );
+
+    return respuesta;
+}
+
     public List<Comentario> listar(){
         return repository.findAll();
     }
-
-    
-    public Optional<Comentario>buscarPorTitulo(String titulo){
-        return repository.findByTituloIgnoreCase(titulo);
-    }
-
     
     public Optional<Comentario> buscarPorId(Integer id){
         return repository.findById(id);
     }
-
-
-
-    public Comentario guardar(Comentario comentario) {
-        Comentario comentarioGuardado = repository.save(comentario);
-
-            try{
-                NotificacionDTO dto = new NotificacionDTO();
-                    dto.setNombre("");
-                    dto.setCategoria("");
-                    dto.setContenido("");
-                
-                    restClientNotificaciones.post()
-                        .uri("/api/mensajes")
-                        .body(dto)
-                        .retrieve()
-                        .toBodilessEntity();
-
-            System.out.println("Comentario guardado");
-
-
-
-       }catch (Exception e) {
-        System.out.println("Error al guardar comentario");
-       }
-       return comentarioGuardado;
-    }
-
-    public void eliminarPorId(Integer Id){
-        repository.deleteById(Id);
-    }
-
-    public Comentario actualizarComentario(Integer id, Comentario comentario){
-        comentario.setId(id);
-        return repository.save(comentario);
-    }
-
-    public List<ComentarioListadoDTO> listarDTO(){
-        List<Comentario> comentario = repository.findAll(); 
-        List<ComentarioListadoDTO> lista = new ArrayList<>(); 
-
-        for(Comentario p : comentario){   
-            ComentarioListadoDTO dto = new ComentarioListadoDTO(); 
-            dto.setTitulo(p.getTitulo());
-
-
-            lista.add(dto); 
-        }
-        return lista; 
-    }
-    
-
-    private final RestClient restClientNotificaciones = RestClient.builder()
-    .baseUrl("http://localhost:8085")
-    .build();
-
 
 }
 

@@ -1,4 +1,4 @@
-package com.inventario.productos.controller;
+package com.inventario.productos.Controller;
 
 import com.inventario.productos.Service.ProductoService;
 import com.inventario.productos.dto.ProductoListadoDTO;
