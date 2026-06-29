@@ -1,0 +1,96 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ApiGatewayApplication",
+            "request": "launch",
+            "mainClass": "com.duocuc.demo.apigateway.ApiGatewayApplication",
+            "projectName": "api-gateway"
+        },
+        {
+            "type": "java",
+            "name": "EurekaServerApplication",
+            "request": "launch",
+            "mainClass": "com.duocuc.demo.eurekaserver.EurekaServerApplication",
+            "projectName": "eureka-server"
+        },
+        {
+            "type": "java",
+            "name": "CompraApplication",
+            "request": "launch",
+            "mainClass": "com.pagos.compra.CompraApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "InformeApplication",
+            "request": "launch",
+            "mainClass": "com.ventas.informe.InformeApplication",
+            "projectName": "informe",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ProductosApplication<productos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.inventario.productos.ProductosApplication",
+            "projectName": "productos",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-CompraApplication<compra>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.pagos.compra.CompraApplication",
+            "projectName": "compra",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DescuentoApplication<descuento>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.promociones.descuento.DescuentoApplication",
+            "projectName": "descuento",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ComentarioApplication<comentario>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.resenas.comentario.ComentarioApplication",
+            "projectName": "comentario",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MensajeApplication<mensaje>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.notificaciones.mensaje.MensajeApplication",
+            "projectName": "mensaje",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-UsuarioApplication<usuario>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.cliente.usuario.UsuarioApplication",
+            "projectName": "usuario",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
